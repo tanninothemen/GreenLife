@@ -15,8 +15,22 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ViewFlipper;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.greenlife.R;
+import com.example.greenlife.adapter.LoaiSPAdapter;
+import com.example.greenlife.model.LoaiSP;
+import com.example.greenlife.util.CheckDeviceInternet;
+import com.example.greenlife.util.Server;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -28,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView;
     ListView listViewHome;
     DrawerLayout drawerLayoutHome;
+    ArrayList<LoaiSP> listLoaiSP;
+    LoaiSPAdapter loaiSPAdapter;
+    int maLoai=0;
+    String tenLoai="";
+    String hinhAnhLoaiSp="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +54,48 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         AnhXa();
 
-        ActionBarHome();
+        if (CheckDeviceInternet.haveNetworkConnection(getApplicationContext())){
+            ActionBarHome();
+            ActionViewFliperHome();
+            GetDuLieuLoaiSP();
+        }
+        else {
+            CheckDeviceInternet.ShowNotify_Short(getApplicationContext(),"Hãy kiểm tra lại kết nối internet của bạn");
+            finish();
+        }
 
-        ActionViewFliperHome();
+
+    }
+
+    private void GetDuLieuLoaiSP() {
+        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Server.LinkLoaiSP, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if (response!=null){
+                    for (int i=0;i<response.length();i++){
+                        try {
+                            JSONObject jsonObject=response.getJSONObject(i);
+                            maLoai=jsonObject.getInt("maLoaiSP");
+                            tenLoai=jsonObject.getString("tenLoaiSP");
+                            hinhAnhLoaiSp=jsonObject.getString("hinhAnhLoaiSP");
+                            listLoaiSP.add(new LoaiSP(maLoai,tenLoai,hinhAnhLoaiSp));
+                            loaiSPAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    listLoaiSP.add(7, new LoaiSP(0,"Liên hệ", "https://img.icons8.com/color/48/000000/contacts.png"));
+                    listLoaiSP.add(8, new LoaiSP(0,"Thông tin", "https://img.icons8.com/color/48/000000/about.png"));
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CheckDeviceInternet.ShowNotify_Short(getApplicationContext(),error.toString());
+            }
+        });
+        queue.add(jsonArrayRequest);
     }
 
     //Bắt sự kiện chạy quảng cáo
@@ -86,5 +144,9 @@ public class MainActivity extends AppCompatActivity {
         navigationView      =(NavigationView) findViewById(R.id.navigationViewHome);
         listViewHome        =(ListView) findViewById(R.id.listViewMenuHome);
         drawerLayoutHome    =(DrawerLayout) findViewById(R.id.drawerLayoutHome);
+        listLoaiSP          =new ArrayList<>();
+        listLoaiSP.add(0, new LoaiSP(0,"Trang chủ", "https://img.icons8.com/color/48/000000/home.png"));
+        loaiSPAdapter       =new LoaiSPAdapter(listLoaiSP,getApplicationContext());
+        listViewHome.setAdapter(loaiSPAdapter);
     }
 }
