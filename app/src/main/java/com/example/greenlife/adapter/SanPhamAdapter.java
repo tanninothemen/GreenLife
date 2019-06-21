@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.example.greenlife.R;
 import com.example.greenlife.activity.ThongTinSanPhamActivity;
 import com.example.greenlife.model.SanPham;
-import com.example.greenlife.util.CheckDeviceInternet;
+import com.example.greenlife.ultil.CheckDeviceInternet;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;

@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -23,15 +23,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.greenlife.R;
 import com.example.greenlife.adapter.LoaiSPAdapter;
 import com.example.greenlife.adapter.SanPhamAdapter;
+import com.example.greenlife.model.GioHang;
 import com.example.greenlife.model.LoaiSP;
 import com.example.greenlife.model.SanPham;
-import com.example.greenlife.util.CheckDeviceInternet;
-import com.example.greenlife.util.Server;
+import com.example.greenlife.ultil.CheckDeviceInternet;
+import com.example.greenlife.ultil.Server;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     String hinhAnhLoaiSp="";
     ArrayList<SanPham> listSanPhamMoi;
     SanPhamAdapter sanPhamMoiAdapter;
+    public static ArrayList<GioHang> gioHangArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -293,5 +294,26 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewHome.setHasFixedSize(true);
         recyclerViewHome.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         recyclerViewHome.setAdapter(sanPhamMoiAdapter);
+        if (gioHangArrayList!=null){
+
+        }else {
+            gioHangArrayList=new ArrayList<>();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_cart,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menuGioHang:
+                Intent intent=new Intent(getApplicationContext(), GioHangActivity.class);
+                startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

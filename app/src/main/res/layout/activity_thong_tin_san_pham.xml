@@ -5,91 +5,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:weightSum="10"
     tools:context=".activity.ThongTinSanPhamActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbarChiTietSanPham"
-        android:layout_width="match_parent"
-        android:background="#f8b195"
+        android:background="#9de0ad"
         app:titleTextColor="#fff"
         app:title="Thông tin sản phẩm"
+        android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
+        
     </android.support.v7.widget.Toolbar>
-
     <LinearLayout
+        android:layout_weight="3"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp">
         <ImageView
             android:id="@+id/imageViewChiTietSanPham"
             android:src="@mipmap/ic_launcher_round"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:layout_width="150dp"
             android:layout_height="150dp" />
         <LinearLayout
+            android:weightSum="4"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="150dp">
+
             <TextView
+                android:layout_weight="1"
                 android:id="@+id/textTenChiTietSanPham"
-                android:text="Tên Sản Phẩm"
+                android:text="Tên sản phẩm"
                 android:textStyle="bold"
-                android:textColor="#594f4f"
-                android:layout_margin="8dp"
+                android:textColor="#45ada8"
+                android:layout_marginLeft="5dp"
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
+                android:layout_height="0dp" />
             <TextView
+                android:layout_weight="1"
                 android:id="@+id/textGiaChiTietSanPham"
+                android:layout_marginLeft="5dp"
+                android:textSize="20sp"
                 android:text="Giá sản phẩm"
-                android:textStyle="bold"
                 android:textColor="#fe4365"
-                android:layout_margin="8dp"
-                android:textSize="18sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            
+                android:layout_height="0dp" />
             <Spinner
-                
+                android:background="@drawable/spinner"
+                android:layout_weight="1"
                 android:textAlignment="center"
-                android:layout_marginTop="15dp"
                 android:id="@+id/spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></Spinner>
+                android:layout_height="0dp"></Spinner>
             <Button
+                android:layout_weight="1"
                 android:id="@+id/buttonDatMua"
-                android:text="Thêm giỏ hàng"
-                android:textColor="#45ada8"
-                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#6c5b7b"
+                android:text="Thêm vào giỏ hàng"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp" />
         </LinearLayout>
-
     </LinearLayout>
-    
+
     <LinearLayout
+        android:layout_weight="7"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        
+        android:layout_height="0dp">
+
         <TextView
-            android:textColor="#594f4f"
-            android:layout_marginTop="10dp"
-            android:textSize="25sp"
+            android:textColor="#81C784"
+            android:layout_marginTop="8dp"
+            android:textSize="24sp"
             android:text="Mô tả sản phẩm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:textSize="20sp"
-                android:padding="8dp"
+                android:layout_margin="5dp"
+                android:textSize="22sp"
+                android:paddingBottom="8dp"
                 android:id="@+id/textMoTaChiTietSanPham"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

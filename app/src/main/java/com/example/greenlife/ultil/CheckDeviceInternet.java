@@ -1,4 +1,4 @@
-package com.example.greenlife.util;
+package com.example.greenlife.ultil;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

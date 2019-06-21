@@ -1,13 +1,14 @@
 package com.example.greenlife.activity;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -22,11 +23,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.greenlife.R;
-import com.example.greenlife.adapter.DoGDAdapter;
 import com.example.greenlife.adapter.DuLichAdapter;
 import com.example.greenlife.model.SanPham;
-import com.example.greenlife.util.CheckDeviceInternet;
-import com.example.greenlife.util.Server;
+import com.example.greenlife.ultil.CheckDeviceInternet;
+import com.example.greenlife.ultil.Server;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -204,5 +204,21 @@ public class DuLichActivity extends AppCompatActivity {
             Message message=handler.obtainMessage(1);
             handler.sendMessage(message);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_cart,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menuGioHang:
+                Intent intent=new Intent(getApplicationContext(), GioHangActivity.class);
+                startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
